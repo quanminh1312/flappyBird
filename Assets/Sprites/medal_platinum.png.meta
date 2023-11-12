@@ -176,7 +176,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      medal_platinum_0: 2974611842509489368
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
