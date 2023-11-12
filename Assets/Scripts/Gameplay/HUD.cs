@@ -25,6 +25,7 @@ public class HUD : MonoBehaviour
 	/// </summary>
 	void Start()
     {
+		score = 0;
 		// add listener for PointsAddedEvent
 		EventManager.AddListener(EventName.PointsAddedEvent, HandlePointsAddedEvent);
 		EventManager.AddListener(EventName.GameOverEvent, HandleGameOverEvent);
