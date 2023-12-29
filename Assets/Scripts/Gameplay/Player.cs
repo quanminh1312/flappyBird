@@ -23,7 +23,7 @@ public class Player : IntEventInvoker
     float screenTop;
     float screenBottom;
 
-    bool enable = false;
+    public bool enable = false;
     bool die = false;
     #endregion
 
@@ -70,19 +70,15 @@ public class Player : IntEventInvoker
         transform.position = position;
         direction = Vector3.zero;
     }
-
     private void Update()
     {
-
         if (enable)
         {
-            if (!die)
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-                {
-                    AudioManager.Play(AudioClipName.Flap);
-                    direction = Vector3.up * strength;
-                }
-
+            if (!die && (Input.GetKeyDown(KeyCode.Space)))
+            {
+                AudioManager.Play(AudioClipName.Flap);
+                direction = Vector3.up * strength;
+            }
             // Apply gravity and update the position
             direction.y += gravity * Time.deltaTime;
             transform.position += direction * Time.deltaTime;

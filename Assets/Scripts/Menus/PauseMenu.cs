@@ -26,6 +26,8 @@ public class PauseMenu : IntEventInvoker
     [SerializeField]
     List<Sprite> Sprite;
     int intScore;
+
+    public GameObject eventSystem = null;
     void Start()
     {
         // pause the game when added to the scene
@@ -33,21 +35,21 @@ public class PauseMenu : IntEventInvoker
         intScore = HUD.score;
 
 		score.text = intScore.ToString();
-        if (PlayerPrefs.HasKey("High Score"))
+        if (PlayerPrefs.HasKey("High Score") && (int)PlayerPrefs.GetInt("High Score") > intScore)
         {
             best.text = PlayerPrefs.GetInt("High Score").ToString();
         } 
         else best.text = intScore.ToString();
         
-        if (intScore > 30)
+        if (intScore > 10  && intScore <= 20)
         {
             medal.sprite = Sprite[1];
         }
-        else if (intScore > 50)
+        else if (intScore > 20 && intScore <=30)
         {
             medal.sprite = Sprite[2];
         } 
-        else if(intScore > 100)
+        else if(intScore > 30)
         {
             medal.sprite = Sprite[3];
         }
@@ -60,12 +62,18 @@ public class PauseMenu : IntEventInvoker
     {
         AudioManager.Play(AudioClipName.Swoosh);
         Time.timeScale = 1;
-
+        eventSystem.gameObject.SetActive(false);
+        GameManager.instance.SetActiveEventSystem();
+        GameManager.instance.player.enable = true;
         if (GameManager.canResume)
         {
             Destroy(gameObject);
         }
-        else MenuManager.GoToMenu(MenuName.Play);
+        else
+        {
+            GameManager.canResume = true;
+            MenuManager.GoToMenu(MenuName.Play);
+        }
         
 	}
 
